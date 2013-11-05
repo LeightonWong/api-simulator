@@ -24,7 +24,7 @@ func Init() {
 		}
 	}
 
-	t := Dbm.AddTable(models.Production{}).SetKeys(true, "ProductionId")
+	t := Dbm.AddTableWithName(models.Product{}, "product").SetKeys(true, "ProductId")
 	//t.ColMap("Password").Transient = true
 	setColumnSizes(t, map[string]int{
 		"Name":     100,
@@ -32,18 +32,15 @@ func Init() {
 	})
 
 	Dbm.TraceOn("[gorp]", r.INFO)
-	Dbm.CreateTables()
+	//Dbm.CreateTables()
 
-	productions := []*models.Production{
-		&models.Production{0, "kmsocial", time.Now()}, 
+	products := []*models.Product{
+		&models.Product{0, "kmsocial", time.Now()}, 
+		&models.Product{0, "dec", time.Now()}, 
 	}
 
-	if err := Dbm.Insert(productions); err != nil {
-		panic(err)
-	}
-
-	for _, production := range productions {
-		if err := Dbm.Insert(production); err != nil {
+	for _, product := range products {
+		if err := Dbm.Insert(product); err != nil {
 			panic(err)
 		}
 	}

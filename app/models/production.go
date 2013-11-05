@@ -5,13 +5,13 @@ import	(
 	"time"
 )
 
-type Production struct {
-	ProductionId	int
-	Name	string
-	CreateAt	time.Time
+type Product struct {
+	ProductId	int	`db:"id"`
+	Name	string	`db:"name"`
+	CreateAt	time.Time	`db:"create_at"`
 }
 
-func (p Production) Validate (v * revel.Validation){
+func (p Product) Validate (v * revel.Validation){
 	v.Required(p.Name)
 	v.Required(p.CreateAt)
 }
