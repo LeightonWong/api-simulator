@@ -7,7 +7,7 @@ import (
 	r "github.com/robfig/revel"
 	"github.com/robfig/revel/modules/db/app"
 	"github.com/wlsailor/api-simulator/app/models"
-	"time"
+	//"time"
 )
 
 var (
@@ -28,12 +28,14 @@ func Init() {
 	//t.ColMap("Password").Transient = true
 	setColumnSizes(t, map[string]int{
 		"Name":     100,
+		"Description":	512, 
 		"CreateAt":	32, 
 	})
 
 	Dbm.TraceOn("[gorp]", r.INFO)
 	//Dbm.CreateTables()
 
+	/*
 	products := []*models.Product{
 		&models.Product{0, "kmsocial", time.Now()}, 
 		&models.Product{0, "dec", time.Now()}, 
@@ -44,6 +46,7 @@ func Init() {
 			panic(err)
 		}
 	}
+	*/
 }
 
 type GorpController struct {

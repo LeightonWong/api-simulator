@@ -1,0 +1,30 @@
+{{set . "title" "Products"}}
+{{template "header.html" .}}
+
+<div class="container">
+  <div class="row">
+    <div class="span6">
+      {{template "flash.html" .}}
+    </div>
+  </div>
+</div>
+
+<h1>Current Products</h1>
+
+{{if not .product}}
+<p>
+  No Product Found
+</p>
+{{else}}
+<div>
+	<form id="{{.product.ProductId}}" action="products/{{.product.ProductId}}/edit" method="post">
+		<p><span>Name:</span><input name="name" type="text" value="{{.product.ProductId}}"/></p>
+		<p><span>Description:</span><textarea name="description" cols=5 rows=6 value="{{.product.Description}}" /></p>
+		<p><span>{{.product.CreateAt.Format "2006-01-02 15:04:05"}}</span></p>
+		<input type="button" value="submit" />
+	</form>
+
+</div>
+{{end}}
+
+{{template "footer.html" .}}

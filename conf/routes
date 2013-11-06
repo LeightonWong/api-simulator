@@ -6,6 +6,12 @@ module:testrunner
 
 GET     /                                       App.Index
 
+GET			/products/															Products.Index
+GET			/products/:id														Products.Detail
+GET			/products/:id/edit											Products.Edit
+GET			/products/add														Products.Add
+GET			/products/:id/delete										Products.Del
+
 # Ignore favicon requests
 GET     /favicon.ico                            404
 
