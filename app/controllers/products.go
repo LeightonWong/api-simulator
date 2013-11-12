@@ -27,6 +27,9 @@ func (p Products) List(size, page int) revel.Result {
 	if page <= 0 {
 		page = 1
 	}
+	if size <= 0 {
+		size = 10
+	}
 	var products []*models.Product
 	results, err := p.Txn.Select(models.Product{}, `select * from product limit ?, ?`, (page-1)*size, size)
 	if err != nil {
@@ -48,7 +51,7 @@ func (p Products) Add(name, description string) revel.Result {
 	p.Validation.Required(name)
 	p.Validation.Required(description)
 	product := models.Product{Name: name, Description: description, CreateAt: time.Now()}
-	err := p.Txn.Insert(product)
+	err := p.Txn.Insert(&product)
 	if err != nil {
 		panic(err)
 	}
@@ -81,4 +84,8 @@ func (p Products) Del(id string) revel.Result {
 		panic(err)
 	}
 	return p.Redirect(Products.List, 10, 1)
+}
+
+func (p Products) New() revel.Result {
+	return p.Render()
 }

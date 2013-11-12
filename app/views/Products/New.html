@@ -1,0 +1,23 @@
+{{set . "title" "Products"}}
+{{template "header.html" .}}
+
+<div class="container">
+  <div class="row">
+    <div class="span6">
+      {{template "flash.html" .}}
+    </div>
+  </div>
+</div>
+
+<h1>New Product</h1>
+
+<div>
+	<form id="product" action="add" method="post">
+		<p><span>Name:</span><input name="name" type="text" value=""/></p>
+		<p><span>Description:</span><textarea name="description" cols=5 rows=6 value="" ></textarea></p>
+		<input type="submit" value="Add Product" />
+	</form>
+
+</div>
+
+{{template "footer.html" .}}

@@ -7,9 +7,12 @@ module:testrunner
 GET     /                                       App.Index
 
 GET			/products/															Products.Index
+GET			/products/list													Products.List
+POST		/products/add														Products.Add
+GET			/products/new														Products.New
+
 GET			/products/:id														Products.Detail
-GET			/products/:id/edit											Products.Edit
-GET			/products/add														Products.Add
+POST		/products/:id/edit											Products.Edit
 GET			/products/:id/delete										Products.Del
 
 # Ignore favicon requests
