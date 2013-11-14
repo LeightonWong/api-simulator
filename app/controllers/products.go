@@ -61,7 +61,7 @@ func (p Products) Add(name, description string) revel.Result {
 func (p Products) Edit(id, name, description string) revel.Result {
 	p.Validation.Required(name)
 	p.Validation.Required(description)
-	_, err := p.Txn.Exec(`update Product set Name = ? , Description = ? where ProductId = ?`, name, description, id)
+	_, err := p.Txn.Exec(`update product set name = ? , description = ? where id = ?`, name, description, id)
 	if err != nil {
 		panic(err)
 	}
@@ -79,7 +79,7 @@ func (p Products) Detail(id string) revel.Result {
 }
 
 func (p Products) Del(id string) revel.Result {
-	_, err := p.Txn.Exec("delete from Product where ProductId = ?", id)
+	_, err := p.Txn.Exec("delete from product where id = ?", id)
 	if err != nil {
 		panic(err)
 	}

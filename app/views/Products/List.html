@@ -35,12 +35,12 @@
       <td>{{.Name}}</td>
       <td>{{.CreateAt.Format "2006-01-02 15:04:05"}}</td>
       <td>
-        <form id="e{{.ProductId}}" method="POST" action="/products/{{.ProductId}}/detail">
+        <form id="e{{.ProductId}}" method="GET" action="/products/{{.ProductId}}">
           <a href="javascript:document.getElementById('e{{.ProductId}}').submit();">Edit</a>
         </form>
       </td>
 			<td>
-        <form id="d{{.ProductId}}" method="POST" action="/products/{{.ProductId}}/delete">
+        <form id="d{{.ProductId}}" method="GET" action="/products/{{.ProductId}}/delete">
           <a href="javascript:document.getElementById('d{{.ProductId}}').submit();">Delete</a>
         </form>
       </td>
