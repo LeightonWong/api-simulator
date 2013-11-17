@@ -27,25 +27,28 @@ func Init() {
 	t := Dbm.AddTableWithName(models.Product{}, "product").SetKeys(true, "ProductId")
 	//t.ColMap("Password").Transient = true
 	setColumnSizes(t, map[string]int{
-		"Name":     100,
-		"Description":	512, 
-		"CreateAt":	32, 
+		"Name":        100,
+		"Description": 512,
+		"CreateAt":    32,
 	})
+
+	Dbm.AddTableWithName(models.ProductApi{}, "product_api").SetKeys(true, "Id")
+	Dbm.AddTableWithName(models.ApiData{}, "api_data").SetKeys(true, "Id")
 
 	Dbm.TraceOn("[gorp]", r.INFO)
 	//Dbm.CreateTables()
 
 	/*
-	products := []*models.Product{
-		&models.Product{0, "kmsocial", time.Now()}, 
-		&models.Product{0, "dec", time.Now()}, 
-	}
-
-	for _, product := range products {
-		if err := Dbm.Insert(product); err != nil {
-			panic(err)
+		products := []*models.Product{
+			&models.Product{0, "kmsocial", time.Now()},
+			&models.Product{0, "dec", time.Now()},
 		}
-	}
+
+		for _, product := range products {
+			if err := Dbm.Insert(product); err != nil {
+				panic(err)
+			}
+		}
 	*/
 }
 
