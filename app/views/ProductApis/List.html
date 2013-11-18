@@ -11,20 +11,21 @@
 
 <h1>Current Products</h1>
 
-{{if not .productApisApis}}
+{{if not .productApis}}
 <p>
-  No Products Found
+  No Product Apis Found
 </p>
 {{else}}
 <div>
+	<p><span>Product ID:{{.productId}}</span></p>
 	<p><span>nextPage:{{.nextPage}}</span></p>
 	<p><span>total:{{.total}}</span></p>
 </div>
 <table>
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Create At</th>
+      <th>Path</th>
+      <th>Update Time</th>
 			<th>Edit</th>
 			<th>Del</th>
     </tr>

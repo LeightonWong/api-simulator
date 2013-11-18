@@ -50,3 +50,7 @@ func (pa ProductApis) Add(productId, style int, path, input, output string) reve
 	}
 	return pa.Render(ProductApis.List, 1, 20)
 }
+
+func (pa ProductApis) Edit(productId, apiId int) revel.Result {
+	return pa.Render()
+}

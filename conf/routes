@@ -15,7 +15,9 @@ GET			/products/:id														Products.Detail
 POST		/products/:id/edit											Products.Edit
 GET			/products/:id/delete										Products.Del
 
-GET			/products/:id/apis/list									ProductApis.List
+GET			/products/:productId/apis/list									ProductApis.List
+GET			/products/apis/add											ProductApis.Add
+GET			/products/apis/:apiId											ProductApis.Edit
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
