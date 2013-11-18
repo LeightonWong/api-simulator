@@ -36,7 +36,7 @@ func Init() {
 	Dbm.AddTableWithName(models.ApiData{}, "api_data").SetKeys(true, "Id")
 
 	Dbm.TraceOn("[gorp]", r.INFO)
-	//Dbm.CreateTables()
+	//Dbm.CreateTablesIfNotExists()
 
 	/*
 		products := []*models.Product{

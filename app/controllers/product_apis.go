@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"github.com/robfig/revel"
-	"github.com/wlsailor/api_simulator/app/models"
+	"github.com/wlsailor/api-simulator/app/models"
 	"time"
 )
 
@@ -11,7 +11,7 @@ type ProductApis struct {
 }
 
 func (pa ProductApis) List(productId, page, size int) revel.Result {
-	revel.Validation.Required(productId)
+	pa.Validation.Required(productId)
 	if page <= 0 {
 		page = 1
 	}
@@ -19,7 +19,7 @@ func (pa ProductApis) List(productId, page, size int) revel.Result {
 		size = 20
 	}
 
-	results, err := pa.Txn.Select(models.ProductApi{}, "Select * from ProductApi where ProductId = ? limit ?, ?", productId, (page-1)*size, size)
+	results, err := pa.Txn.Select(models.ProductApi{}, "Select * from product_api where id = ? limit ?, ?", productId, (page-1)*size, size)
 	if err != nil {
 		panic(err)
 	}
@@ -33,7 +33,7 @@ func (pa ProductApis) List(productId, page, size int) revel.Result {
 		panic(err)
 	}
 	nextPage := page + 1
-	return p.Render(list, total, nextPage)
+	return pa.Render(list, total, nextPage)
 }
 
 func (pa ProductApis) New() revel.Result {
@@ -41,8 +41,8 @@ func (pa ProductApis) New() revel.Result {
 }
 
 func (pa ProductApis) Add(productId, style int, path, input, output string) revel.Result {
-	revel.Validation.Required(productId)
-	revel.Validation.Required(path)
+	pa.Validation.Required(productId)
+	pa.Validation.Required(path)
 	api := &models.ProductApi{0, productId, path, input, output, style, time.Now()}
 	err := pa.Txn.Insert(api)
 	if err != nil {

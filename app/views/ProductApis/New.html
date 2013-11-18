@@ -1,0 +1,53 @@
+{{set . "title" "Products"}}
+{{template "header.html" .}}
+
+<div class="container">
+  <div class="row">
+    <div class="span6">
+      {{template "flash.html" .}}
+    </div>
+  </div>
+</div>
+
+<h1>New Product</h1>
+
+<div>
+	<form id="product_api" action="add" method="post">
+		<p><span>Path:</span><input name="name" type="text" value=""/></p>
+		<p><span>Style:</span>
+			<select name="style">
+				<option value="twoway">twoway</option>
+				<option value="oneway">oneway</option>
+				<option value="job">job</option>
+			</select>
+		</p>
+		<p><ul name="input">
+			<li>
+				<span><input name="field_name" value=""/></span>
+				<span>
+					<select name="field_type">
+						<option value="int">int</option>
+						<option value="string">string</option>
+						<option value="timestamp">timestamp</option>
+						<option value="json">json</option>
+					</select>
+				</span>
+				<span>IsRequired:</span><select name="require"><option value="true">true</option><option value="false">false</option></select>
+			</li>
+		</ul></p>
+		<p>
+			<span>output:</span>
+			<span>type:</span>
+			<select name="output_type">
+				<option value="array">array</option>
+				<option value="object">object</option>
+				<option value="simple">simple</option>
+			</select>
+			<textarea name="output" col="5" row="6"></textarea>
+		</p>
+		<input type="submit" value="Add Api" />
+	</form>
+
+</div>
+
+{{template "footer.html" .}}

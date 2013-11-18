@@ -1,0 +1,60 @@
+{{set . "title" "Product Apis"}}
+{{template "header.html" .}}
+
+<div class="container">
+  <div class="row">
+    <div class="span6">
+      {{template "flash.html" .}}
+    </div>
+  </div>
+</div>
+
+<h1>Current Products</h1>
+
+{{if not .productApisApis}}
+<p>
+  No Products Found
+</p>
+{{else}}
+<div>
+	<p><span>nextPage:{{.nextPage}}</span></p>
+	<p><span>total:{{.total}}</span></p>
+</div>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Create At</th>
+			<th>Edit</th>
+			<th>Del</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{range .productApis}}
+    <tr>
+      <td>{{.Path}}</td>
+      <td>{{.UpdateTime.Format "2006-01-02 15:04:05"}}</td>
+      <td>
+        <form id="e{{.ProductId}}" method="GET" action="/product/api/{{.Id}}">
+          <a href="javascript:document.getElementById('e{{.Id}}').submit();">Edit</a>
+        </form>
+      </td>
+			<td>
+        <form id="d{{.ProductId}}" method="GET" action="/product/api/{{.Id}}/delete">
+          <a href="javascript:document.getElementById('d{{.Id}}').submit();">Delete</a>
+        </form>
+      </td>
+
+    </tr>
+    {{end}}
+  </tbody>
+</table>
+{{end}}
+
+<div>
+	<p>
+    <a href="{{url "ProductApis.New"}}">Add New Api</a>
+  </p>
+</div>
+
+{{template "footer.html" .}}

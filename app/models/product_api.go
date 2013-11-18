@@ -11,7 +11,7 @@ type ProductApi struct {
 	Path       string    `db:"path"`
 	Input      string    `db:"input"`
 	Output     string    `db:"output"`
-	Style      String    `db:"type"`
+	Style      int       `db:"type"`
 	UpdateTime time.Time `db:"update_time"`
 }
 
