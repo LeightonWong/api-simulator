@@ -1,4 +1,4 @@
-{{set . "title" "Products"}}
+{{set . "title" "New Product Api"}}
 {{template "header.html" .}}
 
 <div class="container">
@@ -9,45 +9,89 @@
   </div>
 </div>
 
-<h1>New Product</h1>
-
-<div>
+<div class="new_main_form">
+	<div style="padding-left:100px;"><span><h1>New Product</h1></span></div>
 	<form id="product_api" action="add" method="post">
-		<p><span>Path:</span><input name="name" type="text" value=""/></p>
-		<p><span>Style:</span>
+		<div class="new_form_left">
+			<span>Path:</span>
+		</div>
+		<div class="new_form_right"><input name="name" type="text" value=""/></div>
+		<div class="new_form_left">
+			<span>Style:</span>
+		</div>
+		<div class="new_form_right">
 			<select name="style">
 				<option value="twoway">twoway</option>
 				<option value="oneway">oneway</option>
 				<option value="job">job</option>
 			</select>
-		</p>
-		<p><ul name="input">
-			<li>
-				<span><input name="field_name" value=""/></span>
-				<span>
-					<select name="field_type">
-						<option value="int">int</option>
-						<option value="string">string</option>
-						<option value="timestamp">timestamp</option>
-						<option value="json">json</option>
-					</select>
-				</span>
-				<span>IsRequired:</span><select name="require"><option value="true">true</option><option value="false">false</option></select>
-			</li>
-		</ul></p>
-		<p>
+		</div>
+		<div class="new_form_left">
+			<span>Input Fields:</span>
+		</div>
+		<div class="new_form_right">
+			<ul id="input_fields" name="input">
+				<li>
+					<div class="width:300px;">
+								<span class="width:80px;float:right;">name:</span><span style="width=100px;float:left;"><input class="width:100px;" name="field_name" value=""/></span>
+								<span>
+									type:
+								</span>
+								<span>
+									<select style="width:100px;" name="field_type">
+										<option value="int">int</option>
+										<option value="string">string</option>
+										<option value="timestamp">timestamp</option>
+										<option value="json">json</option>
+									</select>
+								</span>
+								<span>IsRequired:</span><span><select style="width:100px;" name="require"><option value="true">true</option><option value="false">false</option></select></span>
+								<span><a class="input_delete" href="javascript:void(0)">Del</a></span>
+					<div>
+				</li>
+			</ul>
+			<p><input id="input_add" type="button" value="Add" /></p>
+		</div>
+		<div class="new_form_left">
 			<span>output:</span>
+		</div>
+		<div class="new_form_right">
 			<span>type:</span>
 			<select name="output_type">
 				<option value="array">array</option>
 				<option value="object">object</option>
 				<option value="simple">simple</option>
 			</select>
-			<textarea name="output" col="5" row="6"></textarea>
+			<div id="ouspaniv" class="json-editor">
+			</div>
+		</div>
+		<p>
+			<input type="submit" value="Add Api" />
 		</p>
-		<input type="submit" value="Add Api" />
 	</form>
 
 </div>
 
 {{template "footer.html" .}}
+
+<script type="text/javascript">
+$(document).ready(function(){
+		var outjson = { errno:0, err:"Succeed", rst : { json: { value: 1 } } };
+    var opt = { 
+        change: function(data) { /* called on every change */ },
+        propertyclick: function(path) { /* called when a property is clicked with the JS path to that property */ }
+    };
+    /* opt.propertyElement = '<textarea>'; */ // element of the property field, <input> is default
+    /* opt.valueElement = '<textarea>'; */  // element of the value field, <input> is default
+    $('#ouspaniv').jsonEditor(outjson, opt);
+
+		$('#input_add').click(function(){
+				$('#input_fields').append($('#input_fields li:eq(0)').clone());
+		});
+		
+		$('.input_delete').click(function(){
+				alert($(this).html());
+				$(this).parent().parent().parent().remove();
+		});
+	});
+</script>

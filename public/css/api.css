@@ -1,0 +1,23 @@
+.new_main_form {
+	display:block;
+	float:left;
+	width:1100px;
+	margin:22px 0 0 20px;
+}
+
+.new_form_left {
+	float:left;
+	text-align:right;
+	line-height:30px;
+	width:160px;
+	padding-right:10px;
+}
+
+.new_form_right {
+	float:left;
+	text-aligh:left;
+	line-height:30px;
+	width:900px;
+	padding-left:10px;
+}
+
