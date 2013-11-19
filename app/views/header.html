@@ -10,7 +10,8 @@
 		{{append . "moreStyles" "css/jsoneditor.css"}}
 		{{append . "moreStyles" "css/api.css"}}
 		{{append . "moreScripts" "js/jquery.jsoneditor.min.js"}}
-    {{range .moreStyles}}
+		{{append . "moreScripts" "js/json2.js"}}
+		{{range .moreStyles}}
       <link rel="stylesheet" type="text/css" href="/public/{{.}}">
     {{end}}
     {{range .moreScripts}}
