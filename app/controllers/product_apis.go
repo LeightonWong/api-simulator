@@ -19,7 +19,7 @@ func (pa ProductApis) List(productId, page, size int) revel.Result {
 		size = 20
 	}
 
-	results, err := pa.Txn.Select(models.ProductApi{}, "Select * from product_api where id = ? limit ?, ?", productId, (page-1)*size, size)
+	results, err := pa.Txn.Select(models.ProductApi{}, "Select * from product_api where product_id = ? limit ?, ?", productId, (page-1)*size, size)
 	if err != nil {
 		panic(err)
 	}
@@ -32,12 +32,20 @@ func (pa ProductApis) List(productId, page, size int) revel.Result {
 	if err != nil {
 		panic(err)
 	}
+	previousPage := page - 1
 	nextPage := page + 1
-	return pa.Render(list, total, nextPage)
+	if previousPage <= 0 {
+		previousPage = 1
+	}
+
+	if nextPage*size >= int(total) {
+		nextPage = page
+	}
+	return pa.Render(list, productId, total, previousPage, nextPage)
 }
 
-func (pa ProductApis) New() revel.Result {
-	return pa.Render()
+func (pa ProductApis) New(productId int) revel.Result {
+	return pa.Render(productId)
 }
 
 func (pa ProductApis) Add(productId, style int, path, input, output string) revel.Result {
@@ -48,9 +56,40 @@ func (pa ProductApis) Add(productId, style int, path, input, output string) reve
 	if err != nil {
 		panic(err)
 	}
-	return pa.Render(ProductApis.List, 1, 20)
+	pa.Flash.Success("Save new api succeed!")
+	return pa.Redirect("/products/%d/apis/list?page=%d&size=%d", productId, 1, 10)
 }
 
-func (pa ProductApis) Edit(productId, apiId int) revel.Result {
-	return pa.Render()
+func (pa ProductApis) Edit(productId, apiId, style int, path, input, output string) revel.Result {
+	pa.Validation.Required(productId)
+	pa.Validation.Required(apiId)
+	pa.Validation.Required(path)
+	pa.Validation.Required(style)
+	_, err := pa.Txn.Exec("update product_api set path=?, type=?, input=?, output=? where id = ?", path, style, input, output, apiId)
+	if err != nil {
+		panic(err)
+	}
+	pa.Flash.Success("Success update api %d", apiId)
+	return pa.Redirect("/products/%d/apis/list?page=%d&size=%d", productId, 1, 10)
+}
+
+func (pa ProductApis) Detail(productId, apiId int) revel.Result {
+	pa.Validation.Required(productId)
+	pa.Validation.Required(apiId)
+	var api models.ProductApi
+	err := pa.Txn.SelectOne(&api, "select * from product_api where id = ?", apiId)
+	if err != nil {
+		panic(err)
+	}
+	return pa.Render(api, productId, apiId)
+}
+
+func (pa ProductApis) Del(productId, apiId int) revel.Result {
+	pa.Validation.Required(apiId)
+	_, err := pa.Txn.Exec("delete from product_api where id = ?", apiId)
+	if err != nil {
+		panic(err)
+	}
+	pa.Flash.Success("Delete api %d succeeed", apiId)
+	return pa.Redirect("/products/%d/apis/list?page=%d&size=%d", productId, 1, 10)
 }

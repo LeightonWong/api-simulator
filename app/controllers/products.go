@@ -39,12 +39,19 @@ func (p Products) List(size, page int) revel.Result {
 		p := r.(*models.Product)
 		products = append(products, p)
 	}
+	previousPage := page - 1
 	nextPage := page + 1
 	total, err := p.Txn.SelectInt(`select count(*) from product`)
 	if err != nil {
 		panic(err)
 	}
-	return p.Render(products, nextPage, total)
+	if previousPage <= 0 {
+		previousPage = 1
+	}
+	if nextPage*size >= int(total) {
+		nextPage = page
+	}
+	return p.Render(products, previousPage, nextPage, total)
 }
 
 func (p Products) Add(name, description string) revel.Result {

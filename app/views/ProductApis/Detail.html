@@ -1,4 +1,4 @@
-{{set . "title" "New Product Api"}}
+{{set . "title" "Modify Product Api"}}
 {{template "header.html" .}}
 <div class="wrapper">
 <div class="container">
@@ -10,18 +10,18 @@
 </div>
 
 <div class="new_main_form">
-	<div style="padding-left:100px;"><span><h1>New Product({{.productId}}) Api</h1></span></div>
-	<form id="product_api" action="add" method="post">
+	<div style="padding-left:100px;"><span><h1>Edit Product({{.productId}}) Api</h1></span></div>
+	<form id="product_api" action="{{.api.Id}}/edit" method="POST">
 		<input type="hidden" name="productId" value="{{.productId}}"/>
 		<div class="new_form_left">
 			<span>Path:</span>
 		</div>
-		<div class="new_form_right"><input style="width:400px;" name="path" type="text" value=""/></div>
+		<div class="new_form_right"><input style="width:400px;" name="path" type="text" value="{{.api.Path}}"/></div>
 		<div class="new_form_left">
 			<span>Style:</span>
 		</div>
 		<div class="new_form_right">
-			<select name="style">
+			<select name="style" value="{{.api.Style}}">
 				<option value="0">twoway</option>
 				<option value="1">oneway</option>
 				<option value="2">job</option>
@@ -31,7 +31,7 @@
 			<span>Input Fields:</span>
 		</div>
 		<div class="new_form_right">
-			<input id="input" type="hidden" name="input"/>
+			<input id="input" type="hidden" name="input" />
 			<ul id="input_fields" name="input_fields">
 				<li>
 					<div class="width:300px;">
@@ -79,7 +79,7 @@
 			<textarea id="output" name="output" class="json" col="10" row="6"></textarea>
 		</div>
 		<div style="text-align:center">
-			<input id="add_api_button" style="width:200px;" type="button" value="Add Api" />
+			<input id="add_api_button" style="width:200px;" type="button" value="Update Api" />
 		</div>
 	</form>
 
@@ -89,7 +89,23 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-		var outjson = { errno:0, err:"Succeed", rst : { json: { value: 1 } } };
+		var params = {{.api.Input}};
+		var paramsArray = JSON.parse(params)
+		for(i = 0;i < paramsArray.length;i++){
+			var param = paramsArray[i]
+			if(i==0){
+				$('#input_fields li:eq(0) input[name=field_name]').val(param.name);
+				$('#input_fields li:eq(0) select[name=field_type]').val(param.type);
+				$('#input_fields li:eq(0) select[name=required]').val(param.required);
+			}else{
+				var object = $('#input_fields li:eq(0)').clone();
+				$('input[name=field_name]', object).val(param.name);
+				$('select[name=field_type]', object).val(param.type);
+				$('select[name=required]', object).val(param.required);
+				$('#input_fields').append(object);
+			}
+		}
+		var outjson = JSON.parse({{.api.Output}});
 
 		function printJSON() {
     	$('#output').val(JSON.stringify(outjson));

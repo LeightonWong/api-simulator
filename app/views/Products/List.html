@@ -10,17 +10,14 @@
 </div>
 
 <h1>Current Products</h1>
-
+<div class="new_main_form">
+	<div class="products">
 {{if not .products}}
 <p>
   No Products Found
 </p>
 {{else}}
-<div>
-	<p><span>nextPage:{{.nextPage}}</span></p>
-	<p><span>total:{{.total}}</span></p>
-</div>
-<table>
+<table border="1">
   <thead>
     <tr>
       <th>Name</th>
@@ -32,7 +29,7 @@
   <tbody>
     {{range .products}}
     <tr>
-      <td>{{.Name}}</td>
+			<td><a href="/products/{{.ProductId}}/apis/list">{{.Name}}</a></td>
       <td>{{.CreateAt.Format "2006-01-02 15:04:05"}}</td>
       <td>
         <form id="e{{.ProductId}}" method="GET" action="/products/{{.ProductId}}">
@@ -49,6 +46,14 @@
     {{end}}
   </tbody>
 </table>
+<div class="bottom">
+<div class="pager">
+	<p><div style="float:left;padding-left:20px;"><span><a href="{{url "Products.List" 10 .previousPage}}">previousPage</a><a href="{{url "Products.List" 10 .nextPage}}">nextPage</a>&nbsp;total:{{.total}}</span></div>
+	<div style="float:right;"><span><a href="{{url "Products.New"}}">Add Product</a></span></div></p>
+</div>
+</div>
 {{end}}
+</div>
+</div>
 
 {{template "footer.html" .}}

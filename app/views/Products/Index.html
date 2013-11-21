@@ -9,40 +9,13 @@
   </div>
 </div>
 
-<h1>Current Products</h1>
-
-{{if not .products}}
-<p>
-  No Products Found
-</p>
-{{else}}
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Create At</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{range .products}}
-    <tr>
-      <td>{{.Name}}</td>
-      <td>{{.CreateAt.Format "2006-01-02 15:04:05"}}</td>
-      <td>{{.ProductId}}</td>
-      <td>
-        <form id="d{{.ProductId}}" method="POST" action="/products/{{.ProductId}}/cancel">
-          <a href="javascript:document.getElementById('d{{.ProductId}}').submit();">Cancel</a>
-        </form>
-      </td>
-    </tr>
-    {{end}}
-  </tbody>
-</table>
-{{end}}
-
-<div>
-	<p>
-    <a href="{{url "Products.New"}}">Add New Product</a>
-  </p>
+<h1>Welcome to KongMing Products Api Simulator</h1>
+<div class="new_main_form">
+	<div class="products">
+		<div>
+			<span>此处省略一千字</span>
+		</div>
+		<span><a href="{{url "Products.List"}}">产品列表</a></span>
+	</div>
 </div>
 {{template "footer.html" .}}

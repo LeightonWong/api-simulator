@@ -9,19 +9,15 @@
   </div>
 </div>
 
-<h1>Current Products</h1>
-
-{{if not .productApis}}
+<h1>Current Product({{.productId}}) Apis</h1>
+<div class="new_main_form">
+	<div class="products">
+{{if not .list}}
 <p>
   No Product Apis Found
 </p>
 {{else}}
-<div>
-	<p><span>Product ID:{{.productId}}</span></p>
-	<p><span>nextPage:{{.nextPage}}</span></p>
-	<p><span>total:{{.total}}</span></p>
-</div>
-<table>
+<table border="1" style="padding:3px 5px 5px 3px;">
   <thead>
     <tr>
       <th>Path</th>
@@ -31,31 +27,34 @@
     </tr>
   </thead>
   <tbody>
-    {{range .productApis}}
+    {{range .list}}
     <tr>
       <td>{{.Path}}</td>
       <td>{{.UpdateTime.Format "2006-01-02 15:04:05"}}</td>
       <td>
-        <form id="e{{.ProductId}}" method="GET" action="/product/api/{{.Id}}">
+				<form id="e{{.Id}}" method="GET" action="/products/{{.ProductId}}/apis/{{.Id}}">
           <a href="javascript:document.getElementById('e{{.Id}}').submit();">Edit</a>
         </form>
       </td>
 			<td>
-        <form id="d{{.ProductId}}" method="GET" action="/product/api/{{.Id}}/delete">
+				<form id="d{{.Id}}" method="GET" action="/products/{{.ProductId}}/apis/{{.Id}}/del">
           <a href="javascript:document.getElementById('d{{.Id}}').submit();">Delete</a>
         </form>
       </td>
-
     </tr>
     {{end}}
   </tbody>
 </table>
-{{end}}
+<div class="bottom">
+<div class="pager">
+	<p><div style="float:left;padding-left:20px;"><span><a href="{{url "ProductApis.List" .productId 10 .previousPage}}">previousPage</a><a href="{{url "ProductApis.List" .productId 10 .nextPage}}">nextPage</a>&nbsp;total:{{.total}}</span></div>
+	<div style="float:right;"><span><a href="{{url "ProductApis.New" .productId}}">Add Product Api</a><a href="{{url "Products.List"}}">back to products</a>
+</span></div></p>
+</div>
+</div>
 
-<div>
-	<p>
-    <a href="{{url "ProductApis.New"}}">Add New Api</a>
-  </p>
+{{end}}
+</div>
 </div>
 
 {{template "footer.html" .}}

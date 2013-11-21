@@ -15,9 +15,15 @@ GET			/products/:id														Products.Detail
 POST		/products/:id/edit											Products.Edit
 GET			/products/:id/delete										Products.Del
 
-GET			/products/:productId/apis/list									ProductApis.List
-GET			/products/apis/add											ProductApis.Add
-GET			/products/apis/:apiId											ProductApis.Edit
+GET			/products/:productId/apis/list					ProductApis.List
+GET			/products/:productId/apis/new						ProductApis.New
+POST		/products/:productId/apis/add						ProductApis.Add
+POST		/products/:productId/apis/:apiId/edit		ProductApis.Edit
+GET			/products/:productId/apis/:apiId				ProductApis.Detail
+GET			/products/:productId/apis/:apiId/del		ProductApis.DEL
+
+# simulate api outputs
+GET			/simulate/:productId/:path							ApiSimulator.Simulate
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

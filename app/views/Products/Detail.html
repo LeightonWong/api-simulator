@@ -10,13 +10,26 @@
 </div>
 
 <h1>Current Product</h1>
-
-<div>
+<div class="new_main_form">
+	<div class="products">
 	<form id="{{.product.ProductId}}" action="{{.product.ProductId}}/edit" method="post">
-		<p><span>Name:</span><input name="name" type="text" value="{{.product.Name}}"/></p>
-		<p><span>Description:</span><textarea name="description" cols="5" rows="6" >{{.product.Description}}</textarea></p>
-		<p><span>{{.product.CreateAt.Format "2006-01-02 15:04:05"}}</span></p>
-		<input type="submit" value="submit" />
+		<div class="new_form_left"><span>Name:</span>
+		</div>
+		<div class="new_form_right">
+			<input name="name" type="text" value="{{.product.Name}}"/>
+		</div>
+		<div class="new_form_left"><span>Description:</span>
+		</div>
+		<div class="new_form_right">
+			<textarea name="description" style="width:500px;" cols="5" rows="6" >{{.product.Description}}</textarea>
+		</div>
+		<div class="new_form_left"><span>UpdateTime:</span></div>
+		<div class="new_form_right"><span>{{.product.CreateAt.Format "2006-01-02 15:04:05"}}</span></div>
+		<div style="width:80%;float:left;text-align:center;">
+			<input type="submit" value="Update Product" />
+			<input type="button" value="Back" onclick="javascript:history.back();"/>
+		</div>
+
 	</form>
 
 </div>

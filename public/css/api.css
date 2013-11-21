@@ -7,15 +7,39 @@
 .new_main_form {
 	display:block;
 	float:left;
-	width:1100px;
+	width:90%;
 	margin:22px 0 0 20px;
+}
+
+.pager {
+	width:70%;
+	text-align:center;
+	margin:2px auto;
+}
+
+.bottom {
+	width:70%;
+	text-align:center;
+	margin:0 auto;
+}
+
+.products {
+	margin:10px auto;
+	width:80%;
+}
+
+.products table {
+	margin:5px auto;
+	width:50%;
+	text-align:center;
+	vertical-align:middle;
 }
 
 .new_form_left {
 	float:left;
 	text-align:right;
 	line-height:30px;
-	width:160px;
+	width:20%;
 	padding-right:10px;
 }
 
@@ -23,11 +47,11 @@
 	float:left;
 	text-aligh:left;
 	line-height:30px;
-	width:900px;
+	width:70%;
 	padding-left:10px;
 }
 
-#json {
+.json {
 	margin: 10px 10px 10px 32px;
   width: 80%;
   min-height: 70px;
