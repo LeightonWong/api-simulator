@@ -8,12 +8,12 @@ import (
 type ApiData struct {
 	Id         int       `db:"id"`
 	ApiId      int       `db:"api_id"`
-	DataType   int       `db:"type"`
+	Name		   string    `db:"name"`
 	Output     string    `db:"output"`
 	UpdateTime time.Time `db:"update_time"`
 }
 
 func (ad ApiData) Validate(v *revel.Validation) {
 	v.Required(ad.ApiId)
-	v.Required(ad.DataType)
+	v.Required(ad.Name)
 }

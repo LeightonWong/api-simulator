@@ -13,9 +13,11 @@
 <div class="new_main_form">
 	<div class="products">
 {{if not .list}}
-<p>
+<div> 
+<p style="width:50%;">
   No Product Apis Found
 </p>
+</div>
 {{else}}
 <table border="1" style="padding:3px 5px 5px 3px;">
   <thead>
@@ -24,6 +26,7 @@
       <th>Update Time</th>
 			<th>Edit</th>
 			<th>Del</th>
+			<th>Data</th>
     </tr>
   </thead>
   <tbody>
@@ -41,10 +44,17 @@
           <a href="javascript:document.getElementById('d{{.Id}}').submit();">Delete</a>
         </form>
       </td>
+			<td>
+				<form id="o{{.Id}}" method="GET" action="/api/{{.Id}}/outputs/">
+					<a href="javascript:document.getElementById('o{{.Id}}').submit()">Outputs</a>
+				</form>
+			</td>
     </tr>
     {{end}}
   </tbody>
 </table>
+
+{{end}}
 <div class="bottom">
 <div class="pager">
 	<p><div style="float:left;padding-left:20px;"><span><a href="{{url "ProductApis.List" .productId 10 .previousPage}}">previousPage</a><a href="{{url "ProductApis.List" .productId 10 .nextPage}}">nextPage</a>&nbsp;total:{{.total}}</span></div>
@@ -53,7 +63,6 @@
 </div>
 </div>
 
-{{end}}
 </div>
 </div>
 

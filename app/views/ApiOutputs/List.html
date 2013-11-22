@@ -1,0 +1,62 @@
+{{set . "title" "Product Api Outputs"}}
+{{template "header.html" .}}
+
+<div class="container">
+  <div class="row">
+    <div class="span6">
+      {{template "flash.html" .}}
+    </div>
+  </div>
+</div>
+
+<h1>Current Api({{.apiId}}) Outputs</h1>
+<div class="new_main_form">
+	<div class="products">
+{{if not .apiOutputs}}
+<div>
+<p style="text-align:center;">
+  No Product Api Outputs Data Found
+</p>
+</div>
+{{else}}
+<table border="1" style="padding:3px 5px 5px 3px;">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Update Time</th>
+			<th>Edit</th>
+			<th>Del</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{range .apiOutputs}}
+    <tr>
+      <td>{{.Name}}</td>
+      <td>{{.UpdateTime.Format "2006-01-02 15:04:05"}}</td>
+      <td>
+				<form id="e{{.Id}}" method="GET" action="/api/{{.ApiId}}/data/{{.Id}}">
+          <a href="javascript:document.getElementById('e{{.Id}}').submit();">Edit</a>
+        </form>
+      </td>
+			<td>
+				<form id="d{{.Id}}" method="GET" action="/api/{{.ApiId}}/data/{{.Id}}/del">
+          <a href="javascript:document.getElementById('d{{.Id}}').submit();">Delete</a>
+        </form>
+      </td>
+		</tr>
+    {{end}}
+  </tbody>
+</table>
+{{end}}
+<div class="bottom">
+<div class="pager">
+	<p><div style="float:left;padding-left:20px;"><span><a href="{{url "ApiOutputs.List" .apiId 10 .previousPage}}">previousPage</a><a href="{{url "ApiOutputs.List" .apiId 10 .nextPage}}">nextPage</a>&nbsp;total:{{.total}}</span></div>
+	<div style="float:right;"><span><a href="{{url "ApiOutputs.New" .apiId}}">Add Product Api Output</a><a href="{{url "ProductApis.List" 1 1 10}}">back to apis</a>
+</span></div></p>
+</div>
+</div>
+
+</div>
+</div>
+
+{{template "footer.html" .}}
