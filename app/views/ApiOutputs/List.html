@@ -24,6 +24,7 @@
     <tr>
       <th>Name</th>
       <th>Update Time</th>
+			<th>Status</th>
 			<th>Edit</th>
 			<th>Del</th>
     </tr>
@@ -33,6 +34,12 @@
     <tr>
       <td>{{.Name}}</td>
       <td>{{.UpdateTime.Format "2006-01-02 15:04:05"}}</td>
+			<td>
+				<form id="u{{.Id}}" method="GET" action="/api/{{.ApiId}}/data/{{.Id}}/status/">
+					<a href="javascript:document.getElementById('u{{.Id}}').submit();">IsValid:{{.Valid}}</a>
+        </form>
+      </td>
+
       <td>
 				<form id="e{{.Id}}" method="GET" action="/api/{{.ApiId}}/data/{{.Id}}">
           <a href="javascript:document.getElementById('e{{.Id}}').submit();">Edit</a>

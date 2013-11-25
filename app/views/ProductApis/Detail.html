@@ -48,6 +48,7 @@
 									</select>
 								</span>
 								<span>IsRequired:</span><span><select style="width:100px;" name="required"><option value="true">true</option><option value="false">false</option></select></span>
+								<span>Remark:</span><span><input name="remark" type="text" /></span>
 								<span><a class="input_delete" href="javascript:void(0)">Del</a></span>
 					<div>
 				</li>
@@ -97,11 +98,13 @@ $(document).ready(function(){
 				$('#input_fields li:eq(0) input[name=field_name]').val(param.name);
 				$('#input_fields li:eq(0) select[name=field_type]').val(param.type);
 				$('#input_fields li:eq(0) select[name=required]').val(param.required);
+				$('#input_fields li:eq(0) input[name=remark]').val(param.remark);
 			}else{
 				var object = $('#input_fields li:eq(0)').clone();
 				$('input[name=field_name]', object).val(param.name);
 				$('select[name=field_type]', object).val(param.type);
 				$('select[name=required]', object).val(param.required);
+				$('input[name=remark]', object).val(param.remark);
 				$('#input_fields').append(object);
 			}
 		}
@@ -166,6 +169,7 @@ $(document).ready(function(){
 						param.name = $('input[name=field_name]', this).val();
 						param.type = $('select[name=field_type]', this).val();
 						param.required = $('select[name=required]', this).val();
+						param.remark = $('input[name=remark]', this).val()
 						params.push(param);
 						}/*else{
 							alert("parameter name can not be empty");

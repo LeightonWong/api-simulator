@@ -35,6 +35,10 @@
 	vertical-align:middle;
 }
 
+.products table form {
+	margin:10px auto
+}
+
 .new_form_left {
 	float:left;
 	text-align:right;

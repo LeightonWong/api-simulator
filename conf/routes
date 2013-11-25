@@ -28,6 +28,7 @@ POST		/api/:apiId/data/add										ApiOutputs.Add
 GET			/api/:apiId/data/:dataId								ApiOutputs.Detail
 POST		/api/:apiId/data/:dataId/edit						ApiOutputs.Edit
 GET			/api/:apiId/data/:dataId/del						ApiOutputs.Del
+GET			/api/:apiId/data/:dataId/status					ApiOutputs.ChangeStatus
 
 # simulate api outputs
 GET			/simulate/:productId/path/*							ApiSimulator.Simulate

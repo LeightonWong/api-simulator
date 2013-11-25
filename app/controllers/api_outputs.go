@@ -56,7 +56,7 @@ func (ao ApiOutputs) New(apiId int) revel.Result {
 func (ao ApiOutputs) Add(apiId int, name, output string) revel.Result {
 	ao.Validation.Required(apiId)
 	ao.Validation.Required(name)
-	apiData := &models.ApiData{0, apiId, name, output, time.Now()}
+	apiData := &models.ApiData{0, apiId, name, output, true, time.Now()}
 	err := ao.Txn.Insert(apiData)
 	if err != nil {
 		panic(err)
@@ -68,7 +68,7 @@ func (ao ApiOutputs) Add(apiId int, name, output string) revel.Result {
 func (ao ApiOutputs) Edit(apiId, dataId int, name, output string) revel.Result {
 	ao.Validation.Required(apiId)
 	ao.Validation.Required(name)
-	apiData := &models.ApiData{dataId, apiId, name, output, time.Now()}
+	apiData := &models.ApiData{dataId, apiId, name, output, true, time.Now()}
 	_, err := ao.Txn.Update(apiData)
 	if err != nil {
 		panic(err)
@@ -90,6 +90,16 @@ func (ao ApiOutputs) Detail(dataId int) revel.Result {
 func (ao ApiOutputs) Del(apiId, dataId int) revel.Result {
 	ao.Validation.Required(dataId)
 	_, err := ao.Txn.Exec("delete from api_data where id = ?", dataId)
+	if err != nil {
+		panic(err)
+	}
+	return ao.Redirect("/api/%d/outputs/?page=%d&size=%d", apiId, 1, 10)
+}
+
+func (ao ApiOutputs) ChangeStatus(apiId, dataId int) revel.Result {
+	ao.Validation.Required(apiId)
+	ao.Validation.Required(dataId)
+	_, err := ao.Txn.Exec("update api_data set valid = not valid where id = ?", dataId)
 	if err != nil {
 		panic(err)
 	}

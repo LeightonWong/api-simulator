@@ -48,6 +48,7 @@
 									</select>
 								</span>
 								<span>IsRequired:</span><span><select style="width:100px;" name="required"><option value="true">true</option><option value="false">false</option></select></span>
+								<span>Remark:</span><span><input type="text" name="remark"/></span>
 								<span><a class="input_delete" href="javascript:void(0)">Del</a></span>
 					<div>
 				</li>
@@ -150,6 +151,7 @@ $(document).ready(function(){
 						param.name = $('input[name=field_name]', this).val();
 						param.type = $('select[name=field_type]', this).val();
 						param.required = $('select[name=required]', this).val();
+						param.remark = $('input[name=remark]', this).val()
 						params.push(param);
 						}/*else{
 							alert("parameter name can not be empty");
