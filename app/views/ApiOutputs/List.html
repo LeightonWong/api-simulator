@@ -57,7 +57,7 @@
 {{end}}
 <div class="bottom">
 <div class="pager">
-	<p><div style="float:left;padding-left:20px;"><span><a href="{{url "ApiOutputs.List" .apiId 10 .previousPage}}">previousPage</a><a href="{{url "ApiOutputs.List" .apiId 10 .nextPage}}">nextPage</a>&nbsp;total:{{.total}}</span></div>
+	<p><div style="float:left;padding-left:20px;"><span><a href="{{url "ApiOutputs.List" .apiId .previousPage 10}}">previousPage</a><a href="{{url "ApiOutputs.List" .apiId .nextPage 10}}">nextPage</a>&nbsp;total:{{.total}}</span></div>
 	<div style="float:right;"><span><a href="{{url "ApiOutputs.New" .apiId}}">Add Product Api Output</a><a href="{{url "ProductApis.List" 1 1 10}}">back to apis</a>
 </span></div></p>
 </div>
