@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"github.com/robfig/revel"
 	"github.com/wlsailor/api-simulator/app/models"
-	"log"
 	"strings"
 )
 
@@ -31,14 +30,14 @@ func (as ApiSimulator) Simulate(productId string) revel.Result {
 	}
 	params := as.Params
 	path := strings.Split(parts[1], "?")[0]
-	log.Println("simulate path:", path)
+	revel.INFO.Println("simulate path:", path)
 	var api *models.ProductApi = &models.ProductApi{}
 	err := as.Txn.SelectOne(api, "select * from product_api where product_id = ? and path = ?", productId, path)
 	if err != nil {
 		panic(err)
 		//return as.RenderJson(err)
 	}
-	//log.Println("params", api.Input)
+	//revel.INFO.Println("params", api.Input)
 	apiParams := make([]models.ApiParam, 1)
 	err = json.Unmarshal([]byte(api.Input), &apiParams)
 	if err != nil {
