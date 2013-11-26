@@ -48,10 +48,10 @@ func (pa ProductApis) New(productId int) revel.Result {
 	return pa.Render(productId)
 }
 
-func (pa ProductApis) Add(productId, style int, path, input, output string) revel.Result {
+func (pa ProductApis) Add(productId, style int, path, description, input, output string) revel.Result {
 	pa.Validation.Required(productId)
 	pa.Validation.Required(path)
-	api := &models.ProductApi{0, productId, path, input, output, style, time.Now()}
+	api := &models.ProductApi{0, productId, path, description, input, output, style, time.Now()}
 	err := pa.Txn.Insert(api)
 	if err != nil {
 		panic(err)
@@ -60,12 +60,12 @@ func (pa ProductApis) Add(productId, style int, path, input, output string) reve
 	return pa.Redirect("/products/%d/apis/list?page=%d&size=%d", productId, 1, 10)
 }
 
-func (pa ProductApis) Edit(productId, apiId, style int, path, input, output string) revel.Result {
+func (pa ProductApis) Edit(productId, apiId, style int, path, description, input, output string) revel.Result {
 	pa.Validation.Required(productId)
 	pa.Validation.Required(apiId)
 	pa.Validation.Required(path)
 	pa.Validation.Required(style)
-	_, err := pa.Txn.Exec("update product_api set path=?, type=?, input=?, output=? where id = ?", path, style, input, output, apiId)
+	_, err := pa.Txn.Exec("update product_api set path=?, description=?, type=?, input=?, output=? where id = ?", path, description, style, input, output, apiId)
 	if err != nil {
 		panic(err)
 	}

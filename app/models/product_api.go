@@ -6,13 +6,14 @@ import (
 )
 
 type ProductApi struct {
-	Id         int       `db:"id"`
-	ProductId  int       `db:"product_id"`
-	Path       string    `db:"path"`
-	Input      string    `db:"input"`
-	Output     string    `db:"output"`
-	Style      int       `db:"type"`
-	UpdateTime time.Time `db:"update_time"`
+	Id          int       `db:"id"`
+	ProductId   int       `db:"product_id"`
+	Path        string    `db:"path"`
+	Description string    `db:"description"`
+	Input       string    `db:"input"`
+	Output      string    `db:"output"`
+	Style       int       `db:"type"`
+	UpdateTime  time.Time `db:"update_time"`
 }
 
 func (pa ProductApi) Validate(v *revel.Validation) {
