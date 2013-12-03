@@ -19,7 +19,7 @@ func (pa ProductApis) List(productId, page, size int) revel.Result {
 		size = 20
 	}
 
-	results, err := pa.Txn.Select(models.ProductApi{}, "Select * from product_api where product_id = ? limit ?, ?", productId, (page-1)*size, size)
+	results, err := pa.Txn.Select(models.ProductApi{}, "Select * from product_api where product_id = ? order by category, id limit ?, ?", productId, (page-1)*size, size)
 	if err != nil {
 		panic(err)
 	}
@@ -48,10 +48,10 @@ func (pa ProductApis) New(productId int) revel.Result {
 	return pa.Render(productId)
 }
 
-func (pa ProductApis) Add(productId, style int, path, description, input, output string) revel.Result {
+func (pa ProductApis) Add(productId, style int, path, category, description, input, output string) revel.Result {
 	pa.Validation.Required(productId)
 	pa.Validation.Required(path)
-	api := &models.ProductApi{0, productId, path, description, input, output, style, time.Now()}
+	api := &models.ProductApi{0, productId, path, category, description, input, output, style, time.Now()}
 	err := pa.Txn.Insert(api)
 	if err != nil {
 		panic(err)
@@ -60,12 +60,12 @@ func (pa ProductApis) Add(productId, style int, path, description, input, output
 	return pa.Redirect("/products/%d/apis/list?page=%d&size=%d", productId, 1, 10)
 }
 
-func (pa ProductApis) Edit(productId, apiId, style int, path, description, input, output string) revel.Result {
+func (pa ProductApis) Edit(productId, apiId, style int, path, category, description, input, output string) revel.Result {
 	pa.Validation.Required(productId)
 	pa.Validation.Required(apiId)
 	pa.Validation.Required(path)
 	pa.Validation.Required(style)
-	_, err := pa.Txn.Exec("update product_api set path=?, description=?, type=?, input=?, output=? where id = ?", path, description, style, input, output, apiId)
+	_, err := pa.Txn.Exec("update product_api set path=?, category=?, description=?, type=?, input=?, output=? where id = ?", path, category, description, style, input, output, apiId)
 	if err != nil {
 		panic(err)
 	}
@@ -92,4 +92,43 @@ func (pa ProductApis) Del(productId, apiId int) revel.Result {
 	}
 	pa.Flash.Success("Delete api %d succeeed", apiId)
 	return pa.Redirect("/products/%d/apis/list?page=%d&size=%d", productId, 1, 10)
+}
+
+func (pa ProductApis) Search(category, path string, productId, page, size int) revel.Result {
+	pa.Validation.Required(productId)
+	if page <= 0 {
+		page = 1
+	}
+	if size <= 0 || size >= 50 {
+		size = 20
+	}
+
+	if category == "" && path == "" {
+		return pa.Redirect("/products/%d/apis/list?page=%d&size=%d", productId, 1, 10)
+	}
+
+	results, err := pa.Txn.Select(models.ProductApi{}, "select * from product_api where product_id = ? and category like ? and path like ? order by category, id limit ?, ?", productId, "%"+category+"%", "%"+path+"%", (page-1)*size, size)
+	if err != nil {
+		panic(err)
+	}
+	var list []*models.ProductApi
+	for _, r := range results {
+		api := r.(*models.ProductApi)
+		list = append(list, api)
+	}
+	total, err := pa.Txn.SelectInt("select count(*) from product_api where product_id = ? and category like ? and path like ?", productId, "%"+category+"%", "%"+path+"%")
+	if err != nil {
+		panic(err)
+	}
+	previousPage := page - 1
+	nextPage := page + 1
+	if previousPage <= 0 {
+		previousPage = 1
+	}
+
+	if nextPage*size >= int(total) {
+		nextPage = page
+	}
+	return pa.Render(list, productId, total, previousPage, nextPage, category, path)
+
 }

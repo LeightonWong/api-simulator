@@ -20,7 +20,8 @@ GET			/products/:productId/apis/new						ProductApis.New
 POST		/products/:productId/apis/add						ProductApis.Add
 POST		/products/:productId/apis/:apiId/edit		ProductApis.Edit
 GET			/products/:productId/apis/:apiId				ProductApis.Detail
-GET			/products/:productId/apis/:apiId/del		ProductApis.DEL
+GET			/products/:productId/apis/:apiId/del		ProductApis.Del
+POST		/products/:productId/apis/search				ProductApis.Search
 
 GET			/api/:apiId/outputs/										ApiOutputs.List
 GET			/api/:apiId/data/new										ApiOutputs.New
