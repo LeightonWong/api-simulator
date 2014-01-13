@@ -21,9 +21,10 @@
 {{else}}
 <div class="search">
 	<form id="api_search" method="POST" action="search">
-	<span>Category:</span><input type="text" name="category" />
-	<span>Path:</span><input type="text" name="path" />
-	<input type="submit" name="sumbmit" value="搜索" />
+		<span>Category:</span><input type="text" name="category" />
+		<span>Path:</span><input type="text" name="path" />
+		<input type="submit" name="sumbmit" value="搜索" />
+	</form>
 </div>
 <table border="1" style="padding:3px 5px 5px 3px;">
   <thead>
@@ -41,12 +42,19 @@
   <tbody>
     {{range .list}}
     <tr>
+			<td>
+				<form id="e{{.Id}}" method="GET" action="/products/{{.ProductId}}/apis/{{.Id}}">
+					<a href="javascript:document.getElementById('e{{.Id}}').submit();">{{.Path}}</a>
+      	</form>
+			</td>
+			<!--
       <td>{{.Path}}</td>
+			-->
 			<td>{{.Category}}</td>
       <td>{{.UpdateTime.Format "2006-01-02 15:04:05"}}</td>
       <td>
-				<form id="e{{.Id}}" method="GET" action="/products/{{.ProductId}}/apis/{{.Id}}">
-          <a href="javascript:document.getElementById('e{{.Id}}').submit();">Edit</a>
+				<form id="f{{.Id}}" method="GET" action="/products/{{.ProductId}}/apis/{{.Id}}">
+          <a href="javascript:document.getElementById('f{{.Id}}').submit();">Edit</a>
         </form>
       </td>
 			<!--
