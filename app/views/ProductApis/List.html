@@ -32,7 +32,9 @@
 			<th>Category</th>
       <th>Update Time</th>
 			<th>Edit</th>
+			<!--
 			<th>Del</th>
+			-->
 			<th>Data</th>
     </tr>
   </thead>
@@ -47,11 +49,13 @@
           <a href="javascript:document.getElementById('e{{.Id}}').submit();">Edit</a>
         </form>
       </td>
+			<!--
 			<td>
 				<form id="d{{.Id}}" method="GET" action="/products/{{.ProductId}}/apis/{{.Id}}/del">
           <a href="javascript:document.getElementById('d{{.Id}}').submit();">Delete</a>
         </form>
       </td>
+			-->
 			<td>
 				<form id="o{{.Id}}" method="GET" action="/api/{{.Id}}/outputs/">
 					<a href="javascript:document.getElementById('o{{.Id}}').submit()">Outputs</a>
