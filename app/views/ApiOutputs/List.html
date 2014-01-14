@@ -26,7 +26,9 @@
       <th>Update Time</th>
 			<th>Status</th>
 			<th>Edit</th>
+			<!--
 			<th>Del</th>
+			-->
     </tr>
   </thead>
   <tbody>
@@ -45,11 +47,13 @@
           <a href="javascript:document.getElementById('e{{.Id}}').submit();">Edit</a>
         </form>
       </td>
+			<!--
 			<td>
 				<form id="d{{.Id}}" method="GET" action="/api/{{.ApiId}}/data/{{.Id}}/del">
           <a href="javascript:document.getElementById('d{{.Id}}').submit();">Delete</a>
         </form>
       </td>
+			-->
 		</tr>
     {{end}}
   </tbody>
@@ -58,7 +62,9 @@
 <div class="bottom">
 <div class="pager">
 	<p><div style="float:left;padding-left:20px;"><span><a href="{{url "ApiOutputs.List" .apiId .previousPage 10}}">previousPage</a><a href="{{url "ApiOutputs.List" .apiId .nextPage 10}}">nextPage</a>&nbsp;total:{{.total}}</span></div>
-	<div style="float:right;"><span><a href="{{url "ApiOutputs.New" .apiId}}">Add Product Api Output</a><a href="{{url "ProductApis.List" 1 1 10}}">back to apis</a>
+	<div style="float:right;"><span><a href="{{url "ApiOutputs.New" .apiId}}">Add Product Api Output</a>
+			<!--		<a href="{{url "ProductApis.List" 1 1 10}}">back to apis</a>-->
+			<a href="javascript:void()" onclick="history.go(-1)">back to apis</a>
 </span></div></p>
 </div>
 </div>
