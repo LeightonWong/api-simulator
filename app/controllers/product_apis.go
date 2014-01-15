@@ -38,7 +38,7 @@ func (pa ProductApis) List(productId, page, size int) revel.Result {
 		previousPage = 1
 	}
 
-	if nextPage*size >= int(total) {
+	if page*size >= int(total) {
 		nextPage = page
 	}
 	return pa.Render(list, productId, total, previousPage, nextPage)

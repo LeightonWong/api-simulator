@@ -36,7 +36,7 @@ func (ao ApiOutputs) List(apiId, page, size int) revel.Result {
 	if previousPage <= 0 {
 		previousPage = 1
 	}
-	if nextPage*size >= int(total) {
+	if page*size >= int(total) {
 		nextPage = page
 	}
 

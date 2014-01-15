@@ -48,7 +48,7 @@ func (p Products) List(size, page int) revel.Result {
 	if previousPage <= 0 {
 		previousPage = 1
 	}
-	if nextPage*size >= int(total) {
+	if page*size >= int(total) {
 		nextPage = page
 	}
 	return p.Render(products, previousPage, nextPage, total)
