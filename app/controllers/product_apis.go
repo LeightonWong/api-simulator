@@ -57,7 +57,7 @@ func (pa ProductApis) Add(productId, style int, path, category, description, inp
 		panic(err)
 	}
 	pa.Flash.Success("Save new api succeed!")
-	return pa.Redirect("/products/%d/apis/list?page=%d&size=%d", productId, 1, 10)
+	return pa.Redirect("/products/%d/apis/list?page=%d&size=%d", productId, 1, 20)
 }
 
 func (pa ProductApis) Edit(productId, apiId, style int, path, category, description, input, output string) revel.Result {
@@ -70,7 +70,7 @@ func (pa ProductApis) Edit(productId, apiId, style int, path, category, descript
 		panic(err)
 	}
 	pa.Flash.Success("Success update api %d", apiId)
-	return pa.Redirect("/products/%d/apis/list?page=%d&size=%d", productId, 1, 10)
+	return pa.Redirect("/products/%d/apis/list?page=%d&size=%d", productId, 1, 20)
 }
 
 func (pa ProductApis) Detail(productId, apiId int) revel.Result {
@@ -91,7 +91,7 @@ func (pa ProductApis) Del(productId, apiId int) revel.Result {
 		panic(err)
 	}
 	pa.Flash.Success("Delete api %d succeeed", apiId)
-	return pa.Redirect("/products/%d/apis/list?page=%d&size=%d", productId, 1, 10)
+	return pa.Redirect("/products/%d/apis/list?page=%d&size=%d", productId, 1, 20)
 }
 
 func (pa ProductApis) Search(category, path string, productId, page, size int) revel.Result {
@@ -104,7 +104,7 @@ func (pa ProductApis) Search(category, path string, productId, page, size int) r
 	}
 
 	if category == "" && path == "" {
-		return pa.Redirect("/products/%d/apis/list?page=%d&size=%d", productId, 1, 10)
+		return pa.Redirect("/products/%d/apis/list?page=%d&size=%d", productId, 1, 20)
 	}
 
 	results, err := pa.Txn.Select(models.ProductApi{}, "select * from product_api where product_id = ? and category like ? and path like ? order by category, id limit ?, ?", productId, "%"+category+"%", "%"+path+"%", (page-1)*size, size)
