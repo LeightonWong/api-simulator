@@ -24,18 +24,25 @@ func (as ApiSimulator) Simulate(productId string) revel.Result {
 		return as.RenderJson(ErrorMsg{-2, "parameter error", []string{"you need to specify product id"}})
 	}
 	uri := as.Request.RequestURI
-	parts := strings.SplitAfterN(uri, "/path", 2)
+	parts := strings.SplitAfterN(uri, "/path/", 2)
 	if len(parts) != 2 {
 		return as.RenderJson("get simulate path error")
 	}
 	params := as.Params
-	path := strings.Split(parts[1], "?")[0]
-	revel.INFO.Println("simulate path:", path)
+	url := strings.Split(parts[1], "?")[0]
+	completePath := strings.SplitN(url, "/", 2)
+	category := completePath[0]
+	path := "/" + completePath[1]
+	revel.INFO.Println("simulate path:", path, " category:", category)
 	var api *models.ProductApi = &models.ProductApi{}
-	err := as.Txn.SelectOne(api, "select * from product_api where product_id = ? and path = ?", productId, path)
+	err := as.Txn.SelectOne(api, "select * from product_api where product_id = ? and category = ? and path = ?", productId, category, path)
 	if err != nil {
 		panic(err)
 		//return as.RenderJson(err)
+	}
+	errmsgs := []string{}
+	if api.Path == "" {
+		return as.RenderJson(&ErrorMsg{-1, "No such api , please check the url.", errmsgs})
 	}
 	//revel.INFO.Println("params", api.Input)
 	apiParams := make([]models.ApiParam, 1)
@@ -43,7 +50,6 @@ func (as ApiSimulator) Simulate(productId string) revel.Result {
 	if err != nil {
 		panic(err)
 	}
-	errmsgs := []string{}
 	for _, param := range apiParams {
 		if param.Required == "true" && params.Get(param.Name) == "" {
 			errmsgs = append(errmsgs, "required:"+param.Name+" type:"+param.Type)
