@@ -4,8 +4,8 @@ import (
 	"database/sql"
 	"github.com/coopernurse/gorp"
 	_ "github.com/go-sql-driver/mysql"
-	r "github.com/robfig/revel"
-	"github.com/robfig/revel/modules/db/app"
+	r "github.com/revel/revel"
+	"github.com/revel/revel/modules/db/app"
 	"github.com/wlsailor/api-simulator/app/models"
 	//"time"
 )

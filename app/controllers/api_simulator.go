@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"encoding/json"
-	"github.com/robfig/revel"
+	"github.com/revel/revel"
 	"github.com/wlsailor/api-simulator/app/models"
 	"log"
 	"strings"
