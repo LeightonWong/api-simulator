@@ -13,9 +13,11 @@
 <div class="new_main_form">
 	<div class="products">
 {{if not .products}}
-<p>
+<div>
+<p style="text-align:center;">
   No Products Found
 </p>
+</div>
 {{else}}
 <table border="1">
   <thead>
@@ -23,7 +25,9 @@
       <th>Name</th>
       <th>Create At</th>
 			<th>Edit</th>
+			<!--
 			<th>Del</th>
+			-->
     </tr>
   </thead>
   <tbody>
@@ -36,12 +40,13 @@
           <a href="javascript:document.getElementById('e{{.ProductId}}').submit();">Edit</a>
         </form>
       </td>
+			<!--
 			<td>
         <form id="d{{.ProductId}}" method="GET" action="/products/{{.ProductId}}/delete">
           <a href="javascript:document.getElementById('d{{.ProductId}}').submit();">Delete</a>
         </form>
       </td>
-
+			-->
     </tr>
     {{end}}
   </tbody>

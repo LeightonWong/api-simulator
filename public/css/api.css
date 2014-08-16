@@ -35,6 +35,15 @@
 	vertical-align:middle;
 }
 
+.products table form {
+	margin:10px auto
+}
+
+.search {
+	margin:5px auto;
+	text-align:center;
+}
+
 .new_form_left {
 	float:left;
 	text-align:right;

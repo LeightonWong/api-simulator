@@ -21,10 +21,9 @@
 {{else}}
 <div class="search">
 	<form id="api_search" method="POST" action="search">
-		<span>Category:</span><input type="text" name="category" />
-		<span>Path:</span><input type="text" name="path" />
-		<input type="submit" name="sumbmit" value="搜索" />
-	</form>
+		<span>Category:</span><input type="text" name="category" value="{{.category}}"/>
+		<span>Path:</span><input type="text" name="path" value="{{.path}}"/>
+	<input type="submit" name="sumbmit" value="搜索" />
 </div>
 <table border="1" style="padding:3px 5px 5px 3px;">
   <thead>
@@ -33,37 +32,26 @@
 			<th>Category</th>
       <th>Update Time</th>
 			<th>Edit</th>
-			<!--
 			<th>Del</th>
-			-->
 			<th>Data</th>
     </tr>
   </thead>
   <tbody>
     {{range .list}}
     <tr>
-			<td>
-				<form id="e{{.Id}}" method="GET" action="/products/{{.ProductId}}/apis/{{.Id}}">
-					<a href="javascript:document.getElementById('e{{.Id}}').submit();">{{.Path}}</a>
-      	</form>
-			</td>
-			<!--
       <td>{{.Path}}</td>
-			-->
 			<td>{{.Category}}</td>
       <td>{{.UpdateTime.Format "2006-01-02 15:04:05"}}</td>
       <td>
-				<form id="f{{.Id}}" method="GET" action="/products/{{.ProductId}}/apis/{{.Id}}">
-          <a href="javascript:document.getElementById('f{{.Id}}').submit();">Edit</a>
+				<form id="e{{.Id}}" method="GET" action="/products/{{.ProductId}}/apis/{{.Id}}">
+          <a href="javascript:document.getElementById('e{{.Id}}').submit();">Edit</a>
         </form>
       </td>
-			<!--
 			<td>
 				<form id="d{{.Id}}" method="GET" action="/products/{{.ProductId}}/apis/{{.Id}}/del">
           <a href="javascript:document.getElementById('d{{.Id}}').submit();">Delete</a>
         </form>
       </td>
-			-->
 			<td>
 				<form id="o{{.Id}}" method="GET" action="/api/{{.Id}}/outputs/">
 					<a href="javascript:document.getElementById('o{{.Id}}').submit()">Outputs</a>
@@ -77,7 +65,7 @@
 {{end}}
 <div class="bottom">
 <div class="pager">
-	<p><div style="float:left;padding-left:20px;"><span><a href="{{url "ProductApis.List" .productId .previousPage 20}}">previousPage</a><a href="{{url "ProductApis.List" .productId .nextPage 20}}">nextPage</a>&nbsp;total:{{.total}}</span></div>
+	<p><div style="float:left;padding-left:20px;"><span><a href="{{url "ProductApis.List" .productId .previousPage 10}}">previousPage</a><a href="{{url "ProductApis.List" .productId .nextPage 10}}">nextPage</a>&nbsp;total:{{.total}}</span></div>
 	<div style="float:right;"><span><a href="{{url "ProductApis.New" .productId}}">Add Product Api</a><a href="{{url "Products.List"}}">back to products</a>
 </span></div></p>
 </div>

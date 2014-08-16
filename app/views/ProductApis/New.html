@@ -18,6 +18,17 @@
 		</div>
 		<div class="new_form_right"><input style="width:400px;" name="path" type="text" value=""/></div>
 		<div class="new_form_left">
+			<span>Category:</span>
+		</div>
+		<div class="new_form_right"><input style="width:400px;" name="category" type="text" value=""/></div>
+
+		<div class="new_form_left">
+			<span>Description:</span>
+		</div>
+		<div class="new_form_right">
+			<textarea style="width:50%" name="description" value="" ></textarea>
+		</div>
+		<div class="new_form_left">
 			<span>Style:</span>
 		</div>
 		<div class="new_form_right">
@@ -48,6 +59,7 @@
 									</select>
 								</span>
 								<span>IsRequired:</span><span><select style="width:100px;" name="required"><option value="true">true</option><option value="false">false</option></select></span>
+								<span>Remark:</span><span><input type="text" name="remark"/></span>
 								<span><a class="input_delete" href="javascript:void(0)">Del</a></span>
 					<div>
 				</li>
@@ -150,6 +162,7 @@ $(document).ready(function(){
 						param.name = $('input[name=field_name]', this).val();
 						param.type = $('select[name=field_type]', this).val();
 						param.required = $('select[name=required]', this).val();
+						param.remark = $('input[name=remark]', this).val()
 						params.push(param);
 						}/*else{
 							alert("parameter name can not be empty");
