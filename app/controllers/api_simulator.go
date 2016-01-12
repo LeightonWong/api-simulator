@@ -3,7 +3,7 @@ package controllers
 import (
 	"encoding/json"
 	"github.com/revel/revel"
-	"github.com/wlsailor/api-simulator/app/models"
+	"github.com/leightonwong/api-simulator/app/models"
 	"strings"
 )
 

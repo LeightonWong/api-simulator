@@ -6,7 +6,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	r "github.com/revel/revel"
 	"github.com/revel/revel/modules/db/app"
-	"github.com/wlsailor/api-simulator/app/models"
+	"github.com/leightonwong/api-simulator/app/models"
 	//"time"
 )
 
